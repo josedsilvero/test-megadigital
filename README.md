@@ -20,11 +20,9 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+![Screenshot from 2024-04-23 08-40-54](https://github.com/josedsilvero/test-megadigital/assets/167877787/22899d6a-dfc7-4853-a18a-491f0e4b3e70)
 
-![Screenshot from 2024-04-23 08-33-47](https://github.com/josedsilvero/test-megadigital/assets/167877787/298ed376-779e-4e05-aa6d-986a80525add)
-
-
-![Screenshot from 2024-04-23 08-32-51](https://github.com/josedsilvero/test-megadigital/assets/167877787/bd1eb905-1f9d-4735-9e24-ff31818ef37f)
+![Screenshot from 2024-04-23 08-41-09](https://github.com/josedsilvero/test-megadigital/assets/167877787/e4416db1-1432-4a91-accb-56c44d9d58c2)
 
 ## Learn More
 
