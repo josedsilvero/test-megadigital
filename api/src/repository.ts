@@ -36,16 +36,54 @@ export default {
     }
   },
 
-  updateAppointment: async ({ id, salon_id, customer_name, service_name, appointment_time }: { id: number, salon_id: number, customer_name: string, service_name: string, appointment_time: string }) => {
+  updateAppointment: async ({
+    id,
+    salon_id,
+    customer_name,
+    service_name,
+    appointment_time,
+  }: {
+    id: number;
+    salon_id?: number;
+    customer_name?: string;
+    service_name?: string;
+    appointment_time?: string;
+  }) => {
     try {
-      const query = `
-        UPDATE appointments
-        SET salon_id = $1, customer_name = $2, service_name = $3, appointment_time = $4
-        WHERE id = $5
-        RETURNING *;
-      `;
+      let query = 'UPDATE appointments SET ';
+      const values: (string | number)[] = [];
+      let totalFields = 1;
 
-      const result = await db.query(query, [salon_id, customer_name, service_name, appointment_time, id]);
+      if (salon_id !== undefined) {
+        query += `salon_id = $${totalFields}, `;
+        values.push(salon_id);
+        totalFields++;
+      }
+
+      if (customer_name !== undefined) {
+        query += `customer_name = $${totalFields}, `;
+        values.push(customer_name);
+        totalFields++;
+      }
+
+      if (service_name !== undefined) {
+        query += `service_name = $${totalFields}, `;
+        values.push(service_name);
+        totalFields++;
+      }
+
+      if (appointment_time !== undefined) {
+        query += `appointment_time = $${totalFields}, `;
+        values.push(appointment_time);
+        totalFields++;
+      }
+
+      query = query.slice(0, -2);
+
+      query += ` WHERE id = $${totalFields} RETURNING *;`;
+      values.push(id);
+
+      const result = await db.query(query, values);
 
       return result.rows[0];
     } catch (error) {
@@ -56,25 +94,19 @@ export default {
 
   deleteAppointment: async (id: number) => {
     try {
-      const query = `
-        DELETE FROM appointments
-        WHERE id = $1
-        RETURNING *;
-      `;
-
+      const query = 'DELETE FROM appointments WHERE id = $1 RETURNING *;';
       const result = await db.query(query, [id]);
 
       if (result.rowCount === 0) {
-        throw new Error(`Appointment with id ${id} does not exist`);
+        return false;
       }
 
-      return result.rows[0];
+      return true;
     } catch (error) {
       console.error('Error deleting appointment:', error);
       throw new Error('Failed to delete appointment');
     }
   },
-
 
   listSalons: async () => {
     try {
@@ -107,19 +139,27 @@ export default {
   listAppointments: async () => {
     try {
       const query = `
-        SELECT appointments.*, salons.name AS salon_name, salons.location AS salon_location
+        SELECT appointments.*, salons.id AS salon_id, salons.name AS salon_name, salons.location AS salon_location
         FROM appointments
         JOIN salons ON appointments.salon_id = salons.id
-        ORDER BY appointments.appointment_time ASC;
+        ORDER BY appointments.id ASC;
       `;
       const result = await db.query(query);
-      return result.rows;
+
+      return result.rows.map((appointment: any) => ({
+        ...appointment,
+        salon: {
+          id: appointment.salon_id,
+          name: appointment.salon_name,
+          location: appointment.salon_location,
+        },
+        service_name: appointment.service_name,
+      }));
     } catch (error) {
       console.error('Error retrieving appointments:', error);
       throw new Error('Failed to retrieve appointments');
     }
   }
-
 
 };
 

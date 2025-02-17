@@ -16,9 +16,7 @@ export default {
   },
 
   Mutation: {
-    // Create a new appointment
     createAppointment: async (_: any, { salon_id, customer_name, service_name, appointment_time }: { salon_id: number; customer_name: string; service_name: string; appointment_time: string }) => {
-      // Ensure appointment_time is a valid string or timestamp
       return await repository.createAppointment({
         salon_id,
         customer_name,
@@ -27,18 +25,31 @@ export default {
       });
     },
 
-    // Update an existing appointment
-    updateAppointment: async (_: any, { id, salon_id, customer_name, service_name, appointment_time }: { id: number; salon_id: number; customer_name: string; service_name: string; appointment_time: string }) => {
-      return await repository.updateAppointment({
-        id,
-        salon_id,
-        customer_name,
-        service_name,
-        appointment_time
-      });
+    updateAppointment: async (
+      _: any,
+      { id, salon_id, customer_name, service_name, appointment_time }: {
+        id: number;
+        salon_id?: number;
+        customer_name?: string;
+        service_name?: string;
+        appointment_time?: string;
+      }
+    ) => {
+      try {
+        return await repository.updateAppointment({
+          id,
+          salon_id,
+          customer_name,
+          service_name,
+          appointment_time,
+        });
+      } catch (error) {
+        console.error('Error in resolver updating appointment:', error);
+        throw new Error('Failed to update appointment');
+      }
     },
 
-    // Delete an appointment by id
+
     deleteAppointment: async (_: any, { id }: { id: number }) => {
       return await repository.deleteAppointment(id);
     },

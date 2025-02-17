@@ -18,7 +18,9 @@ CREATE TABLE appointments(
   salon_id int NOT NULL,
   customer_name VARCHAR(255) NOT NULL,
   service_name VARCHAR(255) NOT NULL,
-  appointment_time TIMESTAMP NOT NULL
+  appointment_time TIMESTAMP NOT NULL,
+  FOREIGN KEY(salon_id)
+        REFERENCES salons(id)
 );
 
 

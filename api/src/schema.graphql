@@ -23,13 +23,12 @@ type Query {
   salons: [Salon!]!
   services: [Service!]!
   appointments: [Appointment!]!
-  appointment(id: Int!): Appointment
 }
 
 type Mutation {
-  createAppointment(salon_id: Int!, customer_name: String!, service_name: String!, appointment_time: String!): Appointment!
+  createAppointment(salon_id: Int!, customer_name: String!, service_name: String!, appointment_time: String!): Appointment
   
-  updateAppointment(id: Int!, salon_id: Int!, customer_name: String!, service_name: String!, appointment_time: String!): Appointment!
+  updateAppointment(id: Int!, salon_id: Int, customer_name: String, service_name: String, appointment_time: String): Appointment
 
   deleteAppointment(id: Int!): Boolean
 }
