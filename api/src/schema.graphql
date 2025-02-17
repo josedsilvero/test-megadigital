@@ -1,0 +1,19 @@
+type Salon {
+  id: Int!
+  name: String!
+  location: String!
+}
+
+type Query {
+  salons: [Salon!]!
+}
+
+type Service {
+  id: Int!
+  name: String!
+  price: Float!
+}
+
+type Query {
+  salons: [Salon!]!
+}
