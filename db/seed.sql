@@ -12,11 +12,11 @@ INSERT INTO salons (name, location) VALUES
 INSERT INTO services (salon_id, name, price)VALUES
 (1, 'Haircut', 50.0),
 (1, 'Nails', 10.0),
-(1, 'Hairdressing', 25.0),
+(1, 'Hair coloring', 125.0),
 (2, 'Haircut', 40.0),
 (2, 'Nails', 15.5);
 
-INSERT INTO appointments (salonId, customerName, serviceName, appointmentTime)VALUES
+INSERT INTO appointments (salon_id, customer_name, service_name, appointment_time)VALUES
 (1, 'Bill Graham', 'Haircut', CURRENT_TIMESTAMP),
-(1, 'Janet Jones', 'Hairdressing', CURRENT_TIMESTAMP + INTERVAL '1 hour'),
-(2, 'Barbara Green', 'Nails', CURRENT_TIMESTAMP + INTERVAL '2 hour')
+(1, 'Janet Jones', 'Hair coloring', CURRENT_TIMESTAMP + INTERVAL '1 hour'),
+(2, 'Barbara Green', 'Nails', CURRENT_TIMESTAMP + INTERVAL '2 hour');

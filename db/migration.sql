@@ -6,19 +6,19 @@ CREATE TABLE salons (
 
 CREATE TABLE services(
   id SERIAL PRIMARY KEY,
-  salon_id int8 NOT NULL,
+  salon_id int NOT NULL,
   name VARCHAR(255) NOT NULL,
   price NUMERIC NOT NULL,
-  CONSTRAINT FOREIGN KEY(salon_id)
+  FOREIGN KEY(salon_id)
         REFERENCES salons(id)
 );
 
 CREATE TABLE appointments(
   id SERIAL PRIMARY KEY,
-  salonId int8 NOT NULL,
-  customerName VARCHAR(255) NOT NULL,
-  serviceName VARCHAR(255) NOT NULL,
-  appointmentTime TIMESTAMP NOT NULL
+  salon_id int NOT NULL,
+  customer_name VARCHAR(255) NOT NULL,
+  service_name VARCHAR(255) NOT NULL,
+  appointment_time TIMESTAMP NOT NULL
 );
 
 

@@ -5,7 +5,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 cd "$DIR"
 . ./.env  
 
-docker ps -q -f name="$DB_CONTAINER_NAME" 2>&1 \
+sudo docker ps -q -f name="$DB_CONTAINER_NAME" 2>&1 \
     && echo "[db] Stopping existing database container..." \
     && docker stop "$DB_CONTAINER_NAME" > /dev/null 2>&1 \
     && docker rm "$DB_CONTAINER_NAME" > /dev/null 2>&1
@@ -29,7 +29,7 @@ sudo docker run -d \
 
 echo "[db] Waiting for PostgreSQL to be ready..."
 i=0
-while ! docker exec "$DB_CONTAINER_NAME" pg_isready -U postgres -d "$DB_CONTAINER_NAME" >/dev/null 2>&1; do
+while ! sudo docker exec "$DB_CONTAINER_NAME" pg_isready -U postgres -d "$DB_CONTAINER_NAME" >/dev/null 2>&1; do
     i=$((i+1))
     [ "$i" -ge 7 ] \
         && echo "[db] Timed out! Assuming database is ready..." \
@@ -38,12 +38,12 @@ while ! docker exec "$DB_CONTAINER_NAME" pg_isready -U postgres -d "$DB_CONTAINE
 done
 
 echo "[db] Applying migrations..."
-docker exec -i "$DB_CONTAINER_NAME" psql -U postgres -d "$DB_CONTAINER_NAME" < migration.sql \
+sudo docker exec -i "$DB_CONTAINER_NAME" psql -U postgres -d "$DB_CONTAINER_NAME" < migration.sql \
     && echo "[db] Migrations applied successfully!" \
     || echo "[db] Migration failed!"
 
 echo "[db] Seeding database..."
-docker exec -i "$DB_CONTAINER_NAME" psql -U postgres -d "$DB_CONTAINER_NAME" < seed.sql \
+sudo docker exec -i "$DB_CONTAINER_NAME" psql -U postgres -d "$DB_CONTAINER_NAME" < seed.sql \
     && echo "[db] Seeding completed!" \
     || echo "[db] Seeding failed!"
 
