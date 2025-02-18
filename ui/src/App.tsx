@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Badge from 'react-bootstrap/Badge';
+import AppointmentsList from './components/AppointmentsList';
 import './App.css'; // Import the custom CSS file for styling
 
 interface Salon {
@@ -41,13 +42,19 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <div className="content">
-        <Badge className="p-3">{badgeContent}</Badge>
+    <div className="min-vh-100 d-flex flex-column bg-light">
+      <header className="bg-primary text-white p-4">
+        <h1>My Salon App</h1>
+      </header>
+
+      {/* Main content area */}
+      <div className="container-fluid flex-grow-1 p-4">
+        <h2 className="card-title text-black p-2">Appointments List</h2>
+        <AppointmentsList />
       </div>
     </div>
   );
-}
+};
 
 export default App;
 
