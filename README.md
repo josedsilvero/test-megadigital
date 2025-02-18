@@ -51,4 +51,5 @@ Features:
 - Run, in the root of the project:
   - `./run.sh`
 - Follow the instructions on the script output
-![Project Screenshot](ui/src/public/Screenshot from 2025-02-18 00-57-01.png)
+![Screenshot from 2025-02-18 00-57-01](https://github.com/user-attachments/assets/655b005e-3ca1-4f56-80d5-944a44e34939)
+
