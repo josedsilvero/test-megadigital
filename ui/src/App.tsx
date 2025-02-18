@@ -51,6 +51,7 @@ function App() {
       <div className="container-fluid flex-grow-1 p-4">
         <h2 className="card-title text-black p-2">Appointments List</h2>
         <AppointmentsList />
+        {/* <CreateAppointmentForm></CreateAppointmentForm>*/}
       </div>
     </div>
   );

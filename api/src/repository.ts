@@ -2,6 +2,22 @@ import db from './db';
 
 export default {
 
+  findSalonById: async (salon_id: number) => {
+    try {
+      const query = 'SELECT * FROM salons WHERE id = $1';
+      const result = await db.query(query, [salon_id]);
+
+      if (result.rowCount === 0) {
+        return null;
+      }
+
+      return result.rows[0];
+    } catch (error) {
+      console.error('Error finding salon:', error);
+      throw new Error('Failed to find salon');
+    }
+  },
+
   createSalon: async (name: string, location: string) => {
     try {
       const query = `
@@ -159,7 +175,7 @@ export default {
       console.error('Error retrieving appointments:', error);
       throw new Error('Failed to retrieve appointments');
     }
-  }
+  },
 
 };
 
